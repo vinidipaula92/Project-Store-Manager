@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "677a0d40-e81b-40fb-b433-e7d8954979a5",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/products",
+    "url": "localhost:3000/products",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-06-29T19:47:29.997Z",
+    "modified": "2022-06-29T20:57:04.585Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"Roupa do Batman\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
