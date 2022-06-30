@@ -5,15 +5,15 @@
     "containerId": "",
     "name": "localhost:3000/products",
     "url": "localhost:3000/products",
-    "method": "GET",
+    "method": "POST",
     "sortNum": 0,
     "created": "2022-06-29T19:47:29.997Z",
-    "modified": "2022-06-29T20:57:04.585Z",
+    "modified": "2022-06-30T21:27:21.062Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"Roupa do Batman\"\n}",
+      "raw": "{\n    \"name\": \"bat\"\n}",
       "form": []
     },
     "tests": []
