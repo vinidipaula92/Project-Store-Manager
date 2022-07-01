@@ -23,7 +23,7 @@ const productService = {
     const updatedProduct = await productModel.update(id, product);
     if (!updatedProduct) return null;
     return updatedProduct;
-  }
+  },
 };
 
 module.exports = productService;

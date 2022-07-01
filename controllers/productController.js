@@ -43,11 +43,11 @@ const productController = {
       return res.status(422)
         .json({ message: '"name" length must be at least 5 characters long' });
     }
-    const [item] = await productService.update(id, name);
+    await productService.update(id, name);
     const [product] = await productService.findById(id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
     return res.status(200).json(product);
-  }
+  },
 };
 
 module.exports = productController;

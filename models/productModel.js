@@ -25,7 +25,7 @@ const productModel = {
     const sql = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
     const rows = await connection.execute(sql, [product, id]);
     return rows;
-  }
+  },
 };
 
 module.exports = productModel;
