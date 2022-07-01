@@ -7,43 +7,79 @@ const productController = require('../../../controllers/productController');
 
 chai.use(chaiAsPromised);
 
-describe('#productService', () => {
+describe('#productController', () => {
   beforeEach(() => {
     sinon.restore();
   });
-  describe('create', () => {
-    it('ao mandar um objeto com name vazio', async () => {
-      const req = {};
+  describe('listProduct', () => {
+    it('ao mandar um array com os objetos', async () => {
       const res = {};
-      req.body = {};
-
-      const result = await productController.create(req, res);
-      chai.expect(result).to.be.eql({ "message": '"name" is required' });
-
-
-    });
-    it('ao mandar um req.body inválido', async () => {
       const req = {};
-      const res = {};
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub()
-      req.body = { name: '' };
 
-      chai.expect(productController.create(req, res)).to.be.rejectedWith('Product not found')
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(productService, 'listProducts').resolves([products[0]]);
+      chai.expect(productController.listProducts(req, res)).to.be.fulfilled;
     });
   });
-  describe('listProducts', () => {
-    it('se o service devolver um array deve chamar o res.status com 200 e o res.json com o array', async () => {
-      sinon.stub(productService, 'listProducts').resolves(products);
-      const req = {};
+  describe('findById', () => {
+    it('ao mandar um id', async () => {
       const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(productService, 'findById').resolves([products[0]]);
+      chai.expect(productController.findById(req, res)).to.be.fulfilled;
+    });
+    it('ao mandar um id que não existe', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(productService, 'findById').resolves([]);
+      chai.expect(productController.findById(req, res)).to.be.fulfilled;
+    });
+  });
+  describe('create', () => {
+    it('É chamado a mensagem "name" is required quando o name não for passado', async () => {
+      const res = {};
+      const req = {};
+
+      req.body = { name: '' };
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
+      res.json = sinon.stub().returns(res);
 
-      await productController.listProducts(req, res);
+      await productController.create(req, res);
+      return chai.expect(res.status.calledWith(400)).to.be.equal(true);
+    });
+    it('É chamado a mensagem "name" length must be at least 5 characters long quando o name for menor que 5', async () => {
+      const res = {};
+      const req = {};
 
-      chai.expect(res.status.calledWith(200)).to.be.true;
-      chai.expect(res.json.calledWith(products)).to.be.true;
+      req.body = { name: 'Batm' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.create(req, res);
+      return chai.expect(res.status.calledWith(422)).to.be.equal(true);
+    });
+    it('retorna o produto criado', async () => {
+      const res = {};
+      const req = {};
+
+      req.body = { name: 'Batman' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.create(req, res);
+      chai.expect(res.status.calledWith(201)).to.be.equal(true);
     })
-  })
+  });
 });

@@ -12,7 +12,6 @@ const productService = {
   },
   async create(product) {
     const id = await productModel.create(product);
-    if (!id) return null;
     return id;
   },
 };
