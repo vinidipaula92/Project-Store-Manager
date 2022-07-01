@@ -84,6 +84,7 @@ describe('#productController', () => {
   });
   describe('delete', () => {
     it('ao mandar um id', async () => {
+      const mock = products;
       const res = {};
       const req = {};
 
@@ -91,19 +92,20 @@ describe('#productController', () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
 
-      await productController.delete(req, res);
-      chai.expect(res.status.calledWith(204)).to.be.equal(false);
-    })
+      sinon.stub(productService, 'findById').resolves([mock[0]]);
+      sinon.stub(productService, 'delete').resolves([mock[0]]);
+      chai.expect(productController.delete(req, res)).to.be.fulfilled;
+    });
     it('ao mandar um id que não existe', async () => {
       const res = {};
       const req = {};
 
-      req.params = { id: 1 };
+      req.params = { id: 999 };
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
 
       await productController.delete(req, res);
       chai.expect(res.status.calledWith(404)).to.be.equal(true);
-    })
-  })
-});
+    });
+  });
+})

@@ -35,8 +35,9 @@ describe('#productModel', () => {
   });
   describe('#delete', () => {
     it('deve retornar true se o connection.execute retornar true', async () => {
-      sinon.stub(connection, 'execute').resolves(true);
-      chai.expect(productModel.delete(1)).to.eventually.equal(true);
-    })
-  })
+      sinon.stub(connection, 'execute').resolves([true]);
+      const result = await productModel.delete(1);
+      chai.expect(result).to.be.true;
+    });
+  });
 });

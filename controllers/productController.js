@@ -29,8 +29,8 @@ const productController = {
   async delete(req, res) {
     const { id } = req.params;
     const [product] = await productService.findById(id);
-    const item = await productService.delete(id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
+    const item = await productService.delete(id);
     return res.status(204).json(item);
   },
 };
