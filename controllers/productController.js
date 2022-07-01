@@ -15,16 +15,16 @@ const productController = {
   },
   async create(req, res) {
     const { name } = req.body;
-    if (!name) {
-      res.status(400).json({ message: '"name" is required' });
-    }
-    if (name.length < 5) {
-      res.status(422)
-        .json({ message: '"name" length must be at least 5 characters long' });
-    }
     const [{ insertId }] = await productService.create(name);
     const [item] = await productService.findById(insertId);
-    res.status(201).json(item);
+    if (!item.name) {
+      return res.status(400).json({ message: '"name" is required' });
+    }
+    if (item.name.length < 5) {
+      return res.status(400)
+        .json({ message: '"name" length must be at least 5 characters long' });
+    }
+    return res.status(201).json(item);
   },
 };
 
