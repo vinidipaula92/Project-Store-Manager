@@ -18,7 +18,7 @@ const productService = {
     const product = await productModel.delete(id);
     if (!product) return null;
     return product;
-  }
+  },
 };
 
 module.exports = productService;

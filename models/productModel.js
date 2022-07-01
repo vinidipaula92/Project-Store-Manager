@@ -20,7 +20,7 @@ const productModel = {
     const sql = 'DELETE FROM StoreManager.products WHERE id = ?';
     const [rows] = await connection.execute(sql, [id]);
     return rows;
-  }
+  },
 };
 
 module.exports = productModel;
