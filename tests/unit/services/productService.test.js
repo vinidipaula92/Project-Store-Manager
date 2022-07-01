@@ -47,10 +47,20 @@ describe('#productService', () => {
     it('ao mandar um id errado retorna valor null', () => {
       sinon.stub(productModel, 'delete').resolves(null);
       return chai.expect(productService.delete(1)).to.eventually.be.equal(null);
-    })
+    });
     it('Ao mandar um objeto válido', async () => {
       sinon.stub(productModel, 'delete').resolves(mockProduct);
       return chai.expect(productService.delete(1)).to.eventually.be.equal(mockProduct);
+    });
+  });
+  describe('#update', () => {
+    it('ao mandar um id errado retorna valor null', () => {
+      sinon.stub(productModel, 'update').resolves(null);
+      return chai.expect(productService.update(1, { name: "Martelo de Thor" })).to.eventually.be.equal(null);
+    });
+    it('Ao mandar um objeto válido', async () => {
+      sinon.stub(productModel, 'update').resolves(1);
+      return chai.expect(productService.update(1, { name: "Martelo de Thor" })).to.eventually.be.equal(1);
     })
   })
 });

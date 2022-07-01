@@ -108,4 +108,55 @@ describe('#productController', () => {
       chai.expect(res.status.calledWith(404)).to.be.equal(true);
     });
   });
-})
+  describe('update', () => {
+    it('é chamado o status com código 400', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.body = { name: '' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.update(req, res);
+      chai.expect(res.status.calledWith(400)).to.be.equal(true);
+    });
+    it('é chamado o status com código 422', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.body = { name: 'Batm' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.update(req, res);
+      chai.expect(res.status.calledWith(422)).to.be.equal(true);
+    });
+    it('é chamado o status com código 404 quando não encontrar produto', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 999 };
+      req.body = { name: 'Batman' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.update(req, res);
+      chai.expect(res.status.calledWith(404)).to.be.equal(true);
+    });
+    it('é chamado o status com código 200 quando encontrar produto', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.body = { name: 'Batman' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      sinon.stub(productService, 'findById').resolves([products[0]]);
+      sinon.stub(productService, 'update').resolves([products[0]]);
+      chai.expect(productController.update(req, res)).to.be.fulfilled;
+    })
+  });
+});

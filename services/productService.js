@@ -19,6 +19,11 @@ const productService = {
     if (!product) return null;
     return product;
   },
+  async update(id, product) {
+    const updatedProduct = await productModel.update(id, product);
+    if (!updatedProduct) return null;
+    return updatedProduct;
+  }
 };
 
 module.exports = productService;
