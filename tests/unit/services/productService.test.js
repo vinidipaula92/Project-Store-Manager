@@ -41,5 +41,16 @@ describe('#productService', () => {
       sinon.stub(productModel, 'findById').resolves(mockProduct);
       return chai.expect(productService.findById(1)).to.eventually.be.equal(mockProduct);
     });
+  });
+  describe('#delete', () => {
+    const mockProduct = products;
+    it('ao mandar um id errado retorna valor null', () => {
+      sinon.stub(productModel, 'delete').resolves(null);
+      return chai.expect(productService.delete(1)).to.eventually.be.equal(null);
+    })
+    it('Ao mandar um objeto válido', async () => {
+      sinon.stub(productModel, 'delete').resolves(mockProduct);
+      return chai.expect(productService.delete(1)).to.eventually.be.equal(mockProduct);
+    })
   })
 });

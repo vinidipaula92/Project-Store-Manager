@@ -10,8 +10,8 @@
 //     return sales;
 //   },
 //   async create(sales) {
-//     const id = await salesModel.create(sales);
-//     return id;
+//     const saleId = await salesModel.create(sales);
+//     return saleId;
 //   }
 // }
 

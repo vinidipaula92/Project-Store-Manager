@@ -10,6 +10,11 @@
 //     const sales = await salesService.findById(id);
 //     res.status(200).json(sales);
 //   },
-// }
+//   async create(req, res) {
+//     const { sales } = req.body;
+//     const saleId = await salesService.create(sales);
+//     res.status(200).json(saleId);
+//   }
+// };
 
 // module.exports = salesController;

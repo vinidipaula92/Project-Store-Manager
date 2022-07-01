@@ -26,6 +26,13 @@ const productController = {
     const [item] = await productService.findById(insertId);
     return res.status(201).json(item);
   },
+  async delete(req, res) {
+    const { id } = req.params;
+    const [product] = await productService.findById(id);
+    const item = await productService.delete(id);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    return res.status(204).json(item);
+  }
 };
 
 module.exports = productController;

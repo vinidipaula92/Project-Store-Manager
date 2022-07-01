@@ -20,6 +20,11 @@
 //     const [[rows]] = await connection.execute(sql, [id]);
 //     return rows;
 //   },
+//   async create(id) {
+//     const sql = `INSERT INTO StoreManager.sales (id) VALUES (?)`;
+//     const [rows] = await connection.execute(sql, [id]);
+//     return rows;
+//   }
 // }
 
 // module.exports = salesModel;
