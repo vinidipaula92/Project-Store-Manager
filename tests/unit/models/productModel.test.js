@@ -34,15 +34,9 @@ describe('#productModel', () => {
     });
   });
   describe('#delete', () => {
-    it('deve retornar um array se o connection.execute devolver um array', async () => {
-      sinon.stub(connection, 'execute').resolves([products[0]]);
-      const result = await productModel.delete(1);
-      chai.expect(result).to.be.an('array');
-    })
-    it('deve retornar um objeto se o connection.execute retornar um array com um objeto', async () => {
-      sinon.stub(connection, 'execute').resolves([products[0]]);
-      const result = await productModel.delete(1);
-      chai.expect(result).to.be.an('object');
+    it('deve retornar true se o connection.execute retornar true', async () => {
+      sinon.stub(connection, 'execute').resolves(true);
+      chai.expect(productModel.delete(1)).to.eventually.equal(true);
     })
   })
 });
