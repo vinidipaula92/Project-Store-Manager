@@ -18,10 +18,10 @@ const salesService = {
     const sale = await salesModel.delete(id);
     return sale;
   },
-  async update(id) {
-    const sale = await salesModel.update(id);
-    return sale;
-  },
+  // async update(id) {
+  //   const sale = await salesModel.update(id);
+  //   return sale;
+  // },
 };
 
 module.exports = salesService;
