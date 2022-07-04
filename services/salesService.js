@@ -10,9 +10,17 @@ const salesService = {
     if (!sale) return null;
     return sale;
   },
-  async create(sales) {
-    const saleId = await salesModel.create(sales);
-    return saleId;
+  // async create(sales) {
+  //   const saleId = await salesModel.create(sales);
+  //   return saleId;
+  // },
+  async delete(id) {
+    const sale = await salesModel.delete(id);
+    return sale;
+  },
+  async update(id) {
+    const sale = await salesModel.update(id);
+    return sale;
   },
 };
 

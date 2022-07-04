@@ -19,11 +19,21 @@ const salesModel = {
     const [rows] = await connection.execute(sql, [id]);
     return rows;
   },
-  async create(id) {
-    const sql = 'INSERT INTO StoreManager.sales (id) VALUES (?)';
+  // async create(id) {
+  //   const sql = 'INSERT INTO StoreManager.sales (id) VALUES (?)';
+  //   const [rows] = await connection.execute(sql, [id]);
+  //   return rows;
+  // },
+  async delete(id) {
+    const sql = 'DELETE FROM StoreManager.sales WHERE id = ?';
     const [rows] = await connection.execute(sql, [id]);
     return rows;
   },
+  // async update(id, sales) {
+  //   const sql = `UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ?
+  //   AND product_id = ?`;
+  //   const rows = await connection.execute(sql, [sales.quantity, id, sales.productId]);
+  // },                   
 };
 
 module.exports = salesModel;

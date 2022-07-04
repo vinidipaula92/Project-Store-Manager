@@ -4,16 +4,16 @@
     "colId": "history",
     "containerId": "",
     "name": "localhost:3000/products",
-    "url": "localhost:3000/sales/4",
-    "method": "GET",
+    "url": "localhost:3000/sales/1",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2022-06-29T19:47:29.997Z",
-    "modified": "2022-07-04T17:57:29.870Z",
+    "modified": "2022-07-04T18:46:18.905Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"homem aranha\"\n}",
+      "raw": "{\n    \"quantity\": 40\n}",
       "form": []
     },
     "tests": []
