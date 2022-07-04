@@ -50,5 +50,12 @@ describe('#productModel', () => {
       const result = await productModel.update(1, []);
       chai.expect(result).to.be.an('array');
     });
+  });
+  describe('#search', () => {
+    it('deve retornar um array se o connection.execute retornar um array', async () => {
+      sinon.stub(connection, 'execute').resolves([mockProduct]);
+      const result = await productModel.search('teste');
+      chai.expect(result).to.be.an('array');
+    })
   })
 });

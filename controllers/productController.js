@@ -48,6 +48,11 @@ const productController = {
     if (!product) return res.status(404).json({ message: 'Product not found' });
     return res.status(200).json(product);
   },
+  async search(req, res) {
+    const { q } = req.query;
+    const products = await productService.search(q);
+    return res.status(200).json(products);
+  },
 };
 
 module.exports = productController;

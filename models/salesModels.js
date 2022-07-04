@@ -33,7 +33,7 @@ const salesModel = {
   //   const sql = `UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ?
   //   AND product_id = ?`;
   //   const rows = await connection.execute(sql, [sales.quantity, id, sales.productId]);
-  // },                   
+  // },  
 };
 
 module.exports = salesModel;

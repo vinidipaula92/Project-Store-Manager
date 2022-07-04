@@ -61,6 +61,16 @@ describe('#productService', () => {
     it('Ao mandar um objeto válido', async () => {
       sinon.stub(productModel, 'update').resolves(1);
       return chai.expect(productService.update(1, { name: "Martelo de Thor" })).to.eventually.be.equal(1);
-    })
+    });
+  });
+  describe('#search', () => {
+    it('ao mandar um id errado retorna valor null', () => {
+      sinon.stub(productModel, 'search').resolves(null);
+      return chai.expect(productService.search("Martelo de Thor")).to.eventually.be.equal(null);
+    });
+    it('Ao mandar um objeto válido', async () => {
+      sinon.stub(productModel, 'search').resolves(products);
+      return chai.expect(productService.search("Martelo de Thor")).to.eventually.be.equal(products);
+    });
   })
 });

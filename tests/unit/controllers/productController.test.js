@@ -150,13 +150,26 @@ describe('#productController', () => {
       const req = {};
 
       req.params = { id: 1 };
-      req.body = { name: 'Batman' };
+      req.body = { name: 'Martelo de Thor' };
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
 
       sinon.stub(productService, 'findById').resolves([products[0]]);
       sinon.stub(productService, 'update').resolves([products[0]]);
       chai.expect(productController.update(req, res)).to.be.fulfilled;
-    })
+    });
+  });
+  describe('search', () => {
+    it('é chamado o status com código 200', async () => {
+      const res = {};
+      const req = {};
+
+      req.query = { name: 'Martelo de Thor' };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await productController.search(req, res);
+      chai.expect(res.status.calledWith(200)).to.be.equal(true);
+    });
   });
 });

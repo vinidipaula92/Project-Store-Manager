@@ -24,6 +24,11 @@ const productService = {
     if (!updatedProduct) return null;
     return updatedProduct;
   },
+  async search(q) {
+    const products = await productModel.search(q);
+    if (!products) return null;
+    return products;
+  },
 };
 
 module.exports = productService;
