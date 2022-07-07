@@ -35,4 +35,18 @@ describe('#salesModel', () => {
       chai.expect(result).to.be.true;
     });
   });
+  describe('#exists', () => {
+    it('Deve retornar um objeto se o connection.execute retornar um array com um objeto', async () => {
+      sinon.stub(connection, 'execute').resolves([[mockSales[0]]]);
+      const result = await salesModel.exists(1);
+      chai.expect(result).to.be.equal(true);
+    });
+  });
+  describe('#add', () => {
+    it('Retorna uma data se o connection.execute retornar um array com um objeto', async () => {
+      sinon.stub(connection, 'execute').resolves([mockSales]);
+      const result = await salesModel.add(mockSales);
+      chai.expect(result).to.be.an('object');
+    });
+  })
 });

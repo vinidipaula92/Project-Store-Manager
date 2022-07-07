@@ -56,6 +56,13 @@ describe('#productModel', () => {
       sinon.stub(connection, 'execute').resolves([mockProduct]);
       const result = await productModel.search('teste');
       chai.expect(result).to.be.an('array');
-    })
-  })
+    });
+  });
+  describe('#listsId', () => {
+    it('deve retornar um array se o connection.execute retornar um array', async () => {
+      sinon.stub(connection, 'execute').resolves([mockProduct]);
+      const result = await productModel.listsId();
+      chai.expect(result).to.be.an('array');
+    });
+  });
 });

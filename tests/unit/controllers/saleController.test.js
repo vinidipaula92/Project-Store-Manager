@@ -4,6 +4,7 @@ const chaiAsPromised = require('chai-as-promised');
 const salesService = require('../../../services/salesService');
 const sales = require('../mocks/products.mock.js');
 const saleController = require('../../../controllers/salesController');
+const saleMock = require('../mocks/salesAdd.mock');
 
 chai.use(chaiAsPromised);
 
@@ -46,21 +47,8 @@ describe('#productController', () => {
 
       sinon.stub(salesService, 'findById').resolves([]);
       chai.expect(saleController.findById(req, res)).to.be.fulfilled;
-    })
+    });
   });
-  // describe('create', () => {
-  //   it('É chamado a mensagem "name" is required quando o name não for passado', async () => {
-  //     const res = {};
-  //     const req = {};
-
-  //     req.body = { name: '' };
-  //     res.status = sinon.stub().returns(res);
-  //     res.json = sinon.stub().returns(res);
-
-  //     await saleController.create(req, res);
-  //     chai.expect(res.status.calledWith(400)).to.be.equal(true);
-  //   });
-  // })
   describe('#delete', () => {
     it('ao mandar um id', async () => {
       const res = {};
@@ -83,6 +71,20 @@ describe('#productController', () => {
 
       await saleController.delete(req, res);
       chai.expect(res.status.calledWith(404)).to.be.equal(true);
-    })
+    });
+  });
+  describe('#add', () => {
+    const mockAddSales = saleMock;
+    it('ao mandar um array com os objetos', async () => {
+      const res = {};
+      const req = {};
+
+      req.body = mockAddSales;
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(salesService, 'add').resolves([mockAddSales[0]]);
+      chai.expect(saleController.add(req, res)).to.be.fulfilled;
+    });
   });
 });

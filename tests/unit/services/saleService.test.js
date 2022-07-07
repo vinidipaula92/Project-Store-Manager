@@ -5,6 +5,7 @@ const salesService = require('../../../services/salesService');
 const connection = require('../../../models/connection');
 const sales = require('../mocks/products.mock.js');
 const salesModel = require('../../../models/salesModels');
+const salesMock = require('../mocks/sales.mock.js');
 
 chai.use(chaiAsPromised);
 
@@ -30,16 +31,6 @@ describe('#productService', () => {
       chai.expect(result).to.be.an('object');
     });
   });
-  // describe('#create', () => {
-  //   it('deve retornar o id inserido caso dê sucesso', async () => {
-  //     sinon.stub(connection, 'query').rejects([{ insertId: 1 }]);
-  //     chai.expect(salesService.create({})).to.eventually.equal(1);
-  //   });
-  //   it('deve reotrnar o id inserido caso dê sucesso', async () => {
-  //     sinon.stub(connection, 'query').resolves([{ insertId: 1 }]);
-  //     chai.expect(salesService.create({})).to.eventually.equal(1);
-  //   });
-  // });
   describe('#delete', () => {
     it('deve retornar true se o connection.execute retornar true', async () => {
       sinon.stub(connection, 'execute').resolves([true]);
@@ -47,11 +38,27 @@ describe('#productService', () => {
       chai.expect(result).to.be.true;
     });
   });
-  // describe('#update', () => {
-  //   it('deve retornar true se o connection.execute retornar true', async () => {
-  //     sinon.stub(connection, 'execute').resolves([true]);
-  //     const result = await salesService.update(1);
-  //     chai.expect(result).to.be.true;
-  //   });
-  // });
+  describe('#add', () => {
+    const mockSales = salesMock;
+    it('ao mandar um objeto inválido retorna valor null', () => {
+      sinon.stub(salesModel, 'add').resolves(null);
+      return chai.expect(salesService.add(mockSales)).to.eventually.be.equal(null);
+    });
+    it('AO mandar um dado válido deve salvar no banco', async () => {
+      sinon.stub(salesModel, 'add').resolves(sales[0]);
+      const result = await salesService.add(mockSales);
+      chai.expect(result).to.be.an('object');
+    });
+  });
+  describe('#checkIsExists', () => {
+    it('ao mandar um id errado retorna valor false', () => {
+      sinon.stub(salesModel, 'exists').resolves(false);
+      return chai.expect(salesService.checkIsExists(1)).to.eventually.be.false;
+    });
+    it('ao mandar um id válido retorna valor true', async () => {
+      sinon.stub(salesModel, 'exists').resolves(true);
+      const result = await salesService.checkIsExists(1);
+      chai.expect(result).to.be.true;
+    });
+  });
 });
