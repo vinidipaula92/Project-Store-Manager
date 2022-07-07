@@ -1,4 +1,4 @@
-const productService = require("../services/productService");
+const productService = require('../services/productService');
 
 const checkSalesProductId = async (sale) => {
   const productsList = await productService.listProducts();
@@ -7,6 +7,6 @@ const checkSalesProductId = async (sale) => {
     if (!product) return false;
   }
   return true;
-}
+};
 
 module.exports = checkSalesProductId;

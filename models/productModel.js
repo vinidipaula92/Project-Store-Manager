@@ -33,7 +33,7 @@ const productModel = {
   },
   async listsId() {
     const sql = 'SELECT id FROM StoreManager.products';
-    const [items] = await db.execute(sql);
+    const [items] = await connection.execute(sql);
     return items;
   },
 };

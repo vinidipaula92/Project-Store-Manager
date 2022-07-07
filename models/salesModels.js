@@ -25,9 +25,12 @@ const salesModel = {
     return rows;
   },
   async add(data) {
-    await connection.execute('INSERT INTO StoreManager.sales (date) VALUES (NOW())');
-    const [[newIdSale]] = await connection.execute('SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1');
-    const sql = 'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)';
+    await connection
+      .execute('INSERT INTO StoreManager.sales (date) VALUES (NOW())');
+    const [[newIdSale]] = await connection
+      .execute('SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1');
+    const sql = `INSERT INTO StoreManager.sales_products
+    (sale_id, product_id, quantity) VALUES (?, ?, ?)`;
     const newSale = {
       id: newIdSale.id,
       itemsSold: data,
@@ -36,10 +39,10 @@ const salesModel = {
     return newSale;
   },
   async exists(id) {
-    const sql = `SELECT 1 from StoreManager.sales WHERE id = ?`;
+    const sql = 'SELECT 1 from StoreManager.sales WHERE id = ?';
     const [[rows]] = await connection.execute(sql, [id]);
     return !!rows;
-  }
+  },
 };
 
 module.exports = salesModel;
