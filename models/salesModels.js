@@ -19,21 +19,27 @@ const salesModel = {
     const [rows] = await connection.execute(sql, [id]);
     return rows;
   },
-  // async create(id) {
-  //   const sql = 'INSERT INTO StoreManager.sales (id) VALUES (?)';
-  //   const [rows] = await connection.execute(sql, [id]);
-  //   return rows;
-  // },
   async delete(id) {
     const sql = 'DELETE FROM StoreManager.sales WHERE id = ?';
     const [rows] = await connection.execute(sql, [id]);
     return rows;
   },
-  // async update(id, sales) {
-  //   const sql = `UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ?
-  //   AND product_id = ?`;
-  //   const rows = await connection.execute(sql, [sales.quantity, id, sales.productId]);
-  // },  
+  async add(data) {
+    await connection.execute('INSERT INTO StoreManager.sales (date) VALUES (NOW())');
+    const [[newIdSale]] = await connection.execute('SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1');
+    const sql = 'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)';
+    const newSale = {
+      id: newIdSale.id,
+      itemsSold: data,
+    };
+    data.forEach((item) => connection.execute(sql, [newIdSale.id, item.productId, item.quantity]));
+    return newSale;
+  },
+  async exists(id) {
+    const sql = `SELECT 1 from StoreManager.sales WHERE id = ?`;
+    const [[rows]] = await connection.execute(sql, [id]);
+    return !!rows;
+  }
 };
 
 module.exports = salesModel;

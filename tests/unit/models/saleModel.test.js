@@ -4,11 +4,13 @@ const chaiAsPromised = require('chai-as-promised');
 const salesModel = require('../../../models/salesModels');
 const connection = require('../../../models/connection');
 const sales = require('../mocks/sales.mock.js');
+const addSales = require('../mocks/salesAdd.mock');
 
 chai.use(chaiAsPromised);
 
 describe('#salesModel', () => {
   const mockSales = sales;
+  const mockAddSales = addSales;
   beforeEach(() => {
     sinon.restore();
   });
@@ -26,16 +28,6 @@ describe('#salesModel', () => {
       chai.expect(result).to.be.an('object');
     });
   });
-  // describe('#create', () => {
-  //   it('deve retornar o id inserido caso dê sucesso', async () => {
-  //     sinon.stub(connection, 'query').rejects([{ insertId: 1 }]);
-  //     chai.expect(salesModel.create({})).to.eventually.equal(1);
-  //   });
-  //   it('deve reotrnar o id inserido caso dê sucesso', async () => {
-  //     sinon.stub(connection, 'query').resolves([{ insertId: 1 }]);
-  //     chai.expect(salesModel.create({})).to.eventually.equal(1);
-  //   });
-  // })
   describe('#delete', () => {
     it('deve retornar true se o connection.execute retornar true', async () => {
       sinon.stub(connection, 'execute').resolves([true]);
@@ -43,11 +35,4 @@ describe('#salesModel', () => {
       chai.expect(result).to.be.true;
     });
   });
-  // describe('#update', () => {
-  //   it('deve retornar um objeto se o connection.execute retornar um array com um objeto', async () => {
-  //     sinon.stub(connection, 'execute').resolves([mockSales[0]]);
-  //     const result = await salesModel.update(1, []);
-  //     chai.expect(result).to.be.an('array');
-  //   });
-  // });
 });

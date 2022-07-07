@@ -31,6 +31,11 @@ const productModel = {
     const [rows] = await connection.query(sql, [`%${q}%`]);
     return rows;
   },
+  async listsId() {
+    const sql = 'SELECT id FROM StoreManager.products';
+    const [items] = await db.execute(sql);
+    return items;
+  },
 };
 
 module.exports = productModel;

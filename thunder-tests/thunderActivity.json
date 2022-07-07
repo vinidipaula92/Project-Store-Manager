@@ -4,22 +4,16 @@
     "colId": "history",
     "containerId": "",
     "name": "localhost:3000/products",
-    "url": "localhost:3000/products/search?q=Martelo de thor",
-    "method": "GET",
+    "url": "localhost:3000/sales",
+    "method": "POST",
     "sortNum": 0,
     "created": "2022-06-29T19:47:29.997Z",
-    "modified": "2022-07-04T20:47:23.500Z",
+    "modified": "2022-07-06T23:12:10.896Z",
     "headers": [],
-    "params": [
-      {
-        "name": "q",
-        "value": "Martelo de thor",
-        "isPath": false
-      }
-    ],
+    "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"quantity\": 40\n}",
+      "raw": "  [\n    {\n      \"productId\": 25,\n      \"quantity\":15\n    },\n        {\n      \"productId\": 2,\n      \"quantity\":15\n    }\n  ]",
       "form": []
     },
     "tests": []
