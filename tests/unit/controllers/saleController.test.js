@@ -6,6 +6,7 @@ const sales = require('../mocks/products.mock.js');
 const saleController = require('../../../controllers/salesController');
 const saleMock = require('../mocks/salesAdd.mock');
 const saleUpdateMock = require('../mocks/salesUpdated.mock');
+const requestSale = require('../mocks/salesReq.mock');
 
 
 chai.use(chaiAsPromised);
@@ -77,6 +78,7 @@ describe('#productController', () => {
   });
   describe('#add', () => {
     const mockAddSales = saleMock;
+    const reqSale = requestSale;
     it('ao mandar um array com os objetos', async () => {
       const res = {};
       const req = {};
@@ -88,9 +90,33 @@ describe('#productController', () => {
       sinon.stub(salesService, 'add').resolves([mockAddSales[0]]);
       chai.expect(saleController.add(req, res)).to.be.fulfilled;
     });
+    it('ao mandar uma venda sem o campo productId', async () => {
+      const res = {};
+      const req = {};
+
+      req.body = reqSale;
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(salesService, 'add').resolves([mockAddSales[0]]);
+      chai.expect(saleController.add(req, res)).to.be.fulfilled;
+    });
+    it('Ao mandar um productId que não existe', async () => {
+      const res = {};
+      const req = {};
+
+      req.body = reqSale;
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(salesService, 'add').resolves([]);
+      chai.expect(saleController.add(req, res)).to.be.fulfilled;
+    });
   });
   describe('#update', () => {
     const mockUpdateSale = saleUpdateMock;
+    const mockAddSales = saleMock;
+    const reqSale = requestSale;
     it('ao mandar um array com os objetos', async () => {
       const res = {};
       const req = {};
@@ -103,5 +129,17 @@ describe('#productController', () => {
       sinon.stub(salesService, 'update').resolves([mockUpdateSale[0]]);
       chai.expect(saleController.update(req, res)).to.be.fulfilled;
     });
+    it('ao mandar uma venda sem o campo productId', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.body = reqSale;
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(salesService, 'update').resolves([mockAddSales[0]]);
+      chai.expect(saleController.update(req, res)).to.be.fulfilled;
+    })
   });
 });
