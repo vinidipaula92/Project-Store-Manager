@@ -61,4 +61,16 @@ describe('#productService', () => {
       chai.expect(result).to.be.true;
     });
   });
+  describe('#update', () => {
+    const mockSales = salesMock;
+    it('ao mandar um objeto inválido retorna valor null', () => {
+      sinon.stub(salesModel, 'update').resolves(null);
+      return chai.expect(salesService.update(mockSales)).to.eventually.be.equal(null);
+    });
+    it('ao mandar um objeto válido deve salvar no banco', async () => {
+      sinon.stub(salesModel, 'update').resolves(sales[0]);
+      const result = await salesService.update(mockSales);
+      chai.expect(result).to.be.an('object');
+    });
+  })
 });

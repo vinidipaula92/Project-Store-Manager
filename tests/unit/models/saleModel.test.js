@@ -48,5 +48,12 @@ describe('#salesModel', () => {
       const result = await salesModel.add(mockSales);
       chai.expect(result).to.be.an('object');
     });
-  })
+  });
+  describe('#update', () => {
+    it('Retorna um objeto se o connection.execute retornar um array com um objeto', async () => {
+      sinon.stub(connection, 'execute').resolves([mockSales]);
+      const result = await salesModel.update(1, mockSales);
+      chai.expect(result).to.be.an('array');
+    });
+  });
 });

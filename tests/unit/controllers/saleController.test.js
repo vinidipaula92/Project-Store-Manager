@@ -5,6 +5,8 @@ const salesService = require('../../../services/salesService');
 const sales = require('../mocks/products.mock.js');
 const saleController = require('../../../controllers/salesController');
 const saleMock = require('../mocks/salesAdd.mock');
+const saleUpdateMock = require('../mocks/salesUpdated.mock');
+
 
 chai.use(chaiAsPromised);
 
@@ -85,6 +87,21 @@ describe('#productController', () => {
 
       sinon.stub(salesService, 'add').resolves([mockAddSales[0]]);
       chai.expect(saleController.add(req, res)).to.be.fulfilled;
+    });
+  });
+  describe('#update', () => {
+    const mockUpdateSale = saleUpdateMock;
+    it('ao mandar um array com os objetos', async () => {
+      const res = {};
+      const req = {};
+
+      req.params = { id: 1 };
+      req.body = mockUpdateSale;
+      req.status = sinon.stub().returns(res);
+      req.json = sinon.stub().returns(res);
+
+      sinon.stub(salesService, 'update').resolves([mockUpdateSale[0]]);
+      chai.expect(saleController.update(req, res)).to.be.fulfilled;
     });
   });
 });

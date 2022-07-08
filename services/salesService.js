@@ -22,6 +22,10 @@ const salesService = {
     const exists = await salesModel.exists(id);
     return exists;
   },
+  async update(id, data) {
+    const sale = await salesModel.update(id, data);
+    return sale;
+  },
 };
 
 module.exports = salesService;

@@ -1,4 +1,5 @@
 const checkSalesProductId = require('../helpers/checkId');
+const saleUpdate = require('../helpers/saleUpdate');
 const salesService = require('../services/salesService');
 
 const salesController = {
@@ -31,6 +32,22 @@ const salesController = {
 
     const newSale = await salesService.add(sale);
     res.status(201).json(newSale);
+  },
+  async update(req, res) {
+    const { id } = req.params;
+    const sale = req.body;
+    const check = await checkSalesProductId(sale);
+
+    if (!sale[0].productId) return res.status(400).json({ message: '"productId" is required' });
+    if (sale[0].quantity <= 0) {
+      return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+    }
+    if (!sale[0].quantity) return res.status(400).json({ message: '"quantity" is required' });
+    if (!check) return res.status(404).json({ message: 'Product not found' });
+
+    await salesService.update(id, sale);
+    const itemsUpdated = await salesService.findById(id);
+    return saleUpdate(itemsUpdated, res, id, sale);
   },
 };
 
