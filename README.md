@@ -1,9 +1,9 @@
-# Seja bem vindo ao projeto API de Blogs!
+# Seja bem vindo ao projeto Store Manager!
 
 
 ## Stack utilizada
 
-**Back-end:** NodeJs, Express, Sequelize
+**Back-end:** NodeJs, MySQL.
 
 
 <details>
